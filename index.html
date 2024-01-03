@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="background"></div>
+    <button class="pop-up" onclick="window.open('./asdf.html','anonymous','width430,height=500')">팝업창 버튼</button>
+    <button class="layer-popup" onclick="modal()">레이어팝업창버튼</button>
+    <div class="new-popup">
+        <div class="window">
+            <button class="close" onclick="modalclose()">X</button>
+        </div>
+    </div>
+    
+    <div class="abc">1</div>
+    <div class="abc">2</div>
+    <div class="abc">3</div>
+    <div class="abc">4</div>
+    <div class="abc">5</div>
+
+    <div style="border: 1px solid black;">
+        <div class="tag"></div>
+        <input type="text" id="tags" style="border : none;">
+    </div>
+    
+</body>
+<script>
+
+    let tags = document.querySelector('#tags');
+    let tagDiv = document.querySelector('.tag');
+    tagList = []
+
+    tags.addEventListener('keydown', function(e){
+        if(e.key=== ' ' || e.key === 'Enter'){
+            console.log(e.target.value);
+            let tagText = e.target.value.trim();
+            
+            let childDiv = document.createElement('div');
+            childDiv.className ='t';
+            childDiv.style.margin = '5px';
+            childDiv.style.border = '1px solid black';
+            childDiv.style.display = 'inline';
+            childDiv.innerText = tagText;
+
+            tagDiv.appendChild(childDiv);
+
+            tagList.push(e.target.value);
+            e.target.value = '';
+        }else if(e.key === 'Backspace' && e.target.value === '' && tagList.length > 0){
+            let last = tagDiv.lastChild;
+            tagDiv.removeChild(last);
+            tagList.pop();
+            console.log(tagList);
+        }
+    });
+
+    // let modal = document.querySelector('layer-popup');
+    function modal(){
+     let modal = document.querySelector('.new-popup');
+     let bg = document.querySelector(".background");
+     modal.style.display = 'block';
+     bg.style.display = 'block'
+    }
+
+    function modalclose(){
+        let modal = document.querySelector('.new-popup');
+        let bg = document.querySelector(".background");
+        modal.style.display = 'none';
+        bg.style.display = 'none';
+    }
+</script>
+</html>
